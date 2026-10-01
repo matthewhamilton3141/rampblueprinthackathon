@@ -19,6 +19,7 @@
     swap: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></svg>',
     lock: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>',
     bolt: '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2L4 13.5h6.2L9.5 22 20 10.5h-6.4L13.5 2z"/></svg>',
+    send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>',
     close: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     min: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 13h12"/></svg>'
   };
@@ -46,6 +47,7 @@
       this.ready = false;          // true once the execution animation lands
       this.timers = [];
       this.showAll = false;
+      this.messages = [];          // the Ask Ramp thread, kept across re-renders
       this.mount();
     }
 
@@ -125,7 +127,10 @@
              <span class="ann">· ${usd(ctx.monthly * 12)}/yr</span>
            </div>`;
 
-      card.appendChild(el(`
+      // One scroll region for everything that reads; composer and footer pinned.
+      const body = el('<div class="body"></div>');
+
+      body.appendChild(el(`
         <div class="ctx">
           <div class="vendor">
             <h2>${esc(ctx.vendor || ctx.host)}</h2>
@@ -138,13 +143,13 @@
           </div>
         </div>`));
 
-      card.appendChild(el(`
+      body.appendChild(el(`
         <div class="verdict ${verdict.level}">
           <span class="dot"></span><span>${esc(verdict.label)}</span>
           <span class="sub">${this.counts().total} signals</span>
         </div>`));
 
-      if (this.analysis.plan) card.appendChild(this.fix(this.analysis.plan));
+      if (this.analysis.plan) body.appendChild(this.fix(this.analysis.plan));
 
       // 45 seconds of attention: lead with two signals, keep the rest a click away.
       const all = this.analysis.insights;
@@ -156,7 +161,14 @@
         more.addEventListener('click', () => { this.showAll = true; this.render(); });
         list.appendChild(more);
       }
-      card.appendChild(list);
+      body.appendChild(list);
+
+      const thread = el('<div class="thread"></div>');
+      this.messages.forEach(m => thread.appendChild(this.bubble(m)));
+      body.appendChild(thread);
+
+      card.appendChild(body);
+      card.appendChild(this.composer());
 
       card.appendChild(el(`
         <div class="foot">
@@ -358,6 +370,88 @@
         catch { copy.textContent = 'Select and copy'; }
       });
       return node;
+    }
+
+    /** Ask Ramp — pinned under the scroll region. */
+    composer() {
+      const node = el(`
+        <form class="composer">
+          <input type="text" placeholder="Ask Ramp about this purchase…" autocomplete="off" spellcheck="false">
+          <button class="send" type="submit" aria-label="Send">${ICONS.send}</button>
+        </form>`);
+      const input = node.querySelector('input');
+      node.addEventListener('submit', e => {
+        e.preventDefault();
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        this.ask(text);
+      });
+      // the host page shouldn't see any of this typing
+      ['keydown', 'keyup', 'keypress'].forEach(t =>
+        node.addEventListener(t, e => e.stopPropagation()));
+      return node;
+    }
+
+    bubble(m) {
+      if (m.who === 'me') return el(`<div class="msg me">${esc(m.text)}</div>`);
+      const node = el(`
+        <div class="msg ramp">
+          <span class="ava">${ICONS.bolt}</span>
+          <div class="bubble">${m.typing
+            ? '<span class="dots"><i></i><i></i><i></i></span>'
+            : esc(m.text)}</div>
+        </div>`);
+      if (m.action) {
+        const btn = el(`<button class="btn">${esc(m.action.label)}</button>`);
+        btn.addEventListener('click', () => {
+          btn.remove();
+          this.say({ who: 'ramp', text: window.__RAMP_RULES.overrideConfirmation() });
+          chrome.runtime.sendMessage({
+            kind: 'ramp:action',
+            action: { type: 'request_approval', amount: this.analysis.ctx.monthly,
+                      approvers: ['Finance', window.__RAMP_DATA.user.approver] },
+            ctx: { vendor: this.analysis.ctx.vendor }
+          }, () => {});
+          this.toast('Override routed');
+        });
+        node.querySelector('.bubble').appendChild(btn);
+      }
+      return node;
+    }
+
+    /** Append without re-rendering, so the composer keeps focus. */
+    say(m) {
+      this.messages.push(m);
+      const thread = this.root.querySelector('.thread');
+      if (!thread) return null;
+      const node = this.bubble(m);
+      thread.appendChild(node);
+      this.scrollToEnd();
+      return node;
+    }
+
+    scrollToEnd() {
+      const body = this.root.querySelector('.body');
+      if (body) body.scrollTop = body.scrollHeight;
+    }
+
+    ask(text) {
+      this.say({ who: 'me', text });
+      const pending = { who: 'ramp', typing: true };
+      const node = this.say(pending);
+      const reply = window.__RAMP_RULES.assistantReply(this.analysis.ctx, text);
+
+      this.timers.push(setTimeout(() => {
+        // swap the typing dots for the answer, in place
+        const i = this.messages.indexOf(pending);
+        if (i >= 0) this.messages[i] = { who: 'ramp', ...reply };
+        if (node && node.isConnected) {
+          const fresh = this.bubble(this.messages[i]);
+          node.replaceWith(fresh);
+          this.scrollToEnd();
+        }
+      }, 850));
     }
 
     /** The receipt for what Ramp actually bought. */

@@ -54,7 +54,7 @@ window.__RAMP_CSS = `
 /* ---------- expanded card ---------- */
 .card {
   width: 384px;
-  max-height: min(78vh, 760px);
+  max-height: min(84vh, 820px);
   display: flex;
   flex-direction: column;
   background: #0B0C0B;
@@ -283,9 +283,11 @@ window.__RAMP_CSS = `
 .inv .ifoot .spacer { flex: 1; }
 
 /* insight list */
-.list { overflow-y: auto; flex: 1; padding: 4px 0 0; scrollbar-width: thin; }
-.list::-webkit-scrollbar { width: 8px; }
-.list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; border: 2px solid transparent; background-clip: content-box; }
+/* everything that reads scrolls together; min-height:0 is what lets it shrink */
+.body { flex: 1 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: thin; }
+.body::-webkit-scrollbar { width: 8px; }
+.body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; border: 2px solid transparent; background-clip: content-box; }
+.list { padding: 4px 0 0; }
 
 .insight {
   display: grid; grid-template-columns: 22px 1fr; gap: 10px;
@@ -366,6 +368,56 @@ window.__RAMP_CSS = `
   font-size: 11px; line-height: 1.55; color: #D4D7CF; white-space: pre-wrap;
 }
 .result .rfoot { margin-top: 8px; display: flex; gap: 6px; }
+
+/* ---------- ask ramp ---------- */
+.thread { padding: 12px 14px; display: grid; gap: 10px; }
+.thread:empty { display: none; }
+.thread:not(:empty) { border-top: 1px solid rgba(255,255,255,0.08); }
+.msg { font-size: 12.5px; line-height: 1.52; animation: rise .18s ease-out; }
+.msg.me {
+  justify-self: end; max-width: 88%;
+  padding: 7px 10px; border-radius: 11px 11px 3px 11px;
+  background: rgba(255,255,255,0.09); color: #F4F5F2;
+}
+.msg.ramp { display: grid; grid-template-columns: 17px 1fr; gap: 9px; align-items: start; }
+.msg.ramp .ava {
+  width: 17px; height: 17px; border-radius: 5px; background: #D7FC51;
+  display: grid; place-items: center; margin-top: 2px;
+}
+.msg.ramp .ava svg { width: 10px; height: 10px; color: #14200A; }
+.msg.ramp .bubble { color: #C6C9C1; white-space: pre-line; }
+/* break out of the text flow onto its own line */
+.msg.ramp .bubble .btn { display: flex; width: fit-content; margin-top: 10px; }
+.dots { display: inline-flex; gap: 3px; padding: 4px 0; }
+.dots i {
+  width: 4px; height: 4px; border-radius: 99px; background: #6E726A;
+  animation: bob 1.1s ease-in-out infinite;
+}
+.dots i:nth-child(2) { animation-delay: .14s; }
+.dots i:nth-child(3) { animation-delay: .28s; }
+@keyframes bob { 0%,60%,100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-2px); } }
+
+.composer {
+  display: flex; gap: 6px; padding: 10px 14px; flex: none;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.composer input {
+  flex: 1; height: 32px; min-width: 0;
+  padding: 0 11px; border-radius: 9px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #F4F5F2; font: inherit; font-size: 12.5px; outline: none;
+}
+.composer input::placeholder { color: #6E726A; }
+.composer input:focus { border-color: rgba(215,252,81,0.55); background: rgba(255,255,255,0.07); }
+.composer .send {
+  width: 32px; height: 32px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 9px; border: 0; cursor: pointer;
+  background: #D7FC51; color: #14200A;
+}
+.composer .send:hover { background: #E2FF78; }
+.composer .send svg { width: 14px; height: 14px; }
 
 /* footer */
 .foot {

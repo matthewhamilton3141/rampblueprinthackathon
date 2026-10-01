@@ -24,6 +24,13 @@ Run one scenario. The Datadog one carries the whole story.
 | **0:35** | PENDING — the steps tick in over a second: Enterprise provisioned at 71 hosts, card issued and capped, budget cleared, Finance sign-off queued. |
 | **0:40** | The invoice button lightens. **View invoice** → $8,520.00 due, $5,880.00 avoided — and the tier they wanted costs $120/mo more, not $6,000. |
 
+If you have the room, the **Ask Ramp** box at the bottom is the best objection-handler
+in the demo. Type something like *"the platform sub-team needs all 120 hosts for the
+Q4 migration"* and Ramp doesn't dig in — it checks the host tags, concedes the point,
+and offers Enterprise on all 120 for **90 days, reverting to 71 on 2027-01-09**, with
+the Finance sign-off it needs. One button routes it. Ramp as a negotiator with an
+expiry date, not a blocker.
+
 The panel leads with two signals and hides the rest behind *Show N more* — the
 depth is there if a judge asks, and out of the way if they don't.
 
@@ -92,6 +99,11 @@ it instead — one button, then a pending execution with the steps checking off,
 then an invoice for what actually got bought. These four plans are hardcoded in
 `src/data/ramp-mock.js` (`betterBuys`); they're priced off the same numbers the
 rules used, but no solver picked them.
+
+**Ask Ramp.** A composer sits under the signals for pushing back. The replies are
+hardcoded (`assistantReply` in `src/engine/rules.js`) — the override exchange is the
+one that matters, and it answers with a scoped, time-boxed exception rather than a
+yes or a no.
 
 **Actions.** Each individual insight also ends in something you can do: issue a
 virtual card capped at the number the rule just computed and locked to that

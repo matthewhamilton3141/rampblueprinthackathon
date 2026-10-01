@@ -444,5 +444,62 @@
     return L.join('\n');
   }
 
-  window.__RAMP_RULES = { analyze, negotiationScript, consolidationMemo, usd };
+  /**
+   * Hardcoded assistant replies. The demo case is an override request: a
+   * sub-team needs the capacity Ramp just trimmed. Ramp doesn't hold the line,
+   * it scopes the exception and puts an expiry on it.
+   */
+  function assistantReply(ctx, text) {
+    const q = (text || '').toLowerCase();
+    const d = D();
+
+    if (/\b(how do you know|where|source|sure|prove|why do you)\b/.test(q)) {
+      return {
+        text: [
+          'Every number traces to something you can open:',
+          '• 120 hosts and the $14,400 come off this page.',
+          '• 71 reporting hosts and the $8,400 Pro baseline come from the Datadog contract on file.',
+          '• $40,700 committed is your Engineering software spend this month across 9 card and bill-pay transactions.',
+          '• POL-SW-03 is the written policy, not my inference.'
+        ].join('\n')
+      };
+    }
+
+    if (ctx && /datadog/i.test(ctx.vendor || '')) {
+      return {
+        text: [
+          'Checked the tags before answering. 31 of the 49 dark hosts sit in platform-migration, created 18 days ago — that reads like a project spinning up, not dead capacity. Fair push.',
+          '',
+          "So I won't hold at 71. What I can do without a budget fight: Enterprise on all 120 hosts for 90 days, tagged to the project, reverting to 71 on 2027-01-09.",
+          '',
+          '$14,400/mo while it runs — $6,000/mo over your Pro baseline, so it needs Finance sign-off under POL-SW-03.',
+          '',
+          'Want me to route it?'
+        ].join('\n'),
+        action: { label: 'Route the 90-day override', kind: 'override' }
+      };
+    }
+
+    return {
+      text: [
+        'Understood — a project need changes the answer, not the budget.',
+        '',
+        `I can lift the cap for a fixed window rather than permanently: tagged to the project, reverting on a date you set. At ${usd(ctx && ctx.monthly || 0)}/mo it needs ${d.user.approver} sign-off.`,
+        '',
+        'Want me to route it?'
+      ].join('\n'),
+      action: { label: 'Route the exception', kind: 'override' }
+    };
+  }
+
+  function overrideConfirmation() {
+    const ref = 'OVR-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+    return [
+      `Routed to Finance + ${D().user.approver}. Reference ${ref}.`,
+      '',
+      'The card cap lifts to $14,400/mo on approval and steps back to $8,520 on 2027-01-09. I\'ll flag it a week out so nobody has to remember.'
+    ].join('\n');
+  }
+
+  window.__RAMP_RULES = { analyze, negotiationScript, consolidationMemo, assistantReply, overrideConfirmation, usd };
 })();
