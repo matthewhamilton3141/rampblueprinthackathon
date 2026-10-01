@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datadog — Plan &amp; Usage (panel preview)</title>
+  <link rel="stylesheet" href="../demo/demo.css">
+</head>
+<body>
+  <div class="topbar">
+    <span class="brand">Datadog</span>
+    <nav><span>Dashboards</span><span>APM</span><span>Logs</span><span>Plan &amp; Usage</span></nav>
+    <div class="right"><span>northwind-prod</span><span class="avatar">AC</span></div>
+  </div>
+  <main>
+    <h1>Plan &amp; Usage</h1>
+    <p class="lede">Observability, APM and log management for the northwind-prod organization. <strong>Dev preview</strong> — the panel runs here without installing the extension.</p>
+    <div class="panel">
+      <div class="row">
+        <div><h2>Current plan</h2><p class="muted small">Pro · billed annually · renews January 14, 2027</p></div>
+        <span class="spacer"></span>
+        <div style="text-align:right">
+          <div class="pricebig">$8,400<small class="muted" style="font-size:13px;font-weight:400">/month</small></div>
+          <div class="muted small">120 hosts provisioned · 71 reporting in the last 90 days</div>
+        </div>
+      </div>
+    </div>
+    <h2 style="margin-top:28px">Change plan</h2>
+    <p class="muted small">You're upgrading to Enterprise.</p>
+    <div class="tiers">
+      <div class="tier current"><h3>Pro <span class="badge">Current</span></h3><div class="p">$70 <small>per host / month</small></div></div>
+      <div class="tier selected"><h3>Enterprise <span class="badge sel">Selected</span></h3><div class="p">$120 <small>per host / month</small></div></div>
+      <div class="tier"><h3>Free</h3><div class="p">$0 <small>/month</small></div></div>
+    </div>
+    <div class="panel summary">
+      <div class="row">
+        <div><h2>Upgrade summary</h2><p class="muted small">Enterprise tier, 120 hosts, committed annually</p></div>
+        <span class="spacer"></span>
+        <div style="text-align:right">
+          <div class="total">$14,400/month</div>
+          <div class="muted small">$172,800 per year</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="chrome-shim.js"></script>
+  <script src="../background/service-worker.js"></script>
+  <script src="../src/data/ramp-mock.js"></script>
+  <script src="../src/engine/detect.js"></script>
+  <script src="../src/engine/rules.js"></script>
+  <script src="../src/content/panel-style.js"></script>
+  <script src="../src/content/panel.js"></script>
+  <script src="../src/content/content.js"></script>
+</body>
+</html>

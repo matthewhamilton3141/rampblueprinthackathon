@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ramp Escalate</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="22" height="22" rx="6" fill="#D7FC51"/>
+      <path d="M7 16.5V7.5h5.4a2.8 2.8 0 0 1 0 5.6H9.4l4.3 3.4" stroke="#0B0C0B" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="who">
+      <strong id="who-name">—</strong>
+      <span id="who-role">—</span>
+    </div>
+  </header>
+
+  <section class="now">
+    <h4>On this page</h4>
+    <div id="now-body" class="now-body empty">Nothing to escalate here.</div>
+  </section>
+
+  <section>
+    <h4>Your limits this month</h4>
+    <div id="budgets"></div>
+  </section>
+
+  <section>
+    <h4>Demo scenarios</h4>
+    <p class="hint" id="demo-hint">Serve them once: <code>python3 -m http.server 8787</code> from the repo root</p>
+    <div id="demos" class="demos"></div>
+  </section>
+
+  <section>
+    <h4>Recent actions</h4>
+    <div id="log" class="log empty">No cards issued or approvals requested yet.</div>
+  </section>
+
+  <footer>
+    <button id="rescan">Re-scan page</button>
+    <span class="spacer"></span>
+    <span>Mock Ramp data · v0.1.0</span>
+  </footer>
+
+  <script src="../data/ramp-mock.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Ramp Escalate",
+  "version": "0.1.0",
+  "description": "Ambient spend intelligence. Reads live page context and surfaces Ramp insight before the money moves.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "file:///*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Ramp Escalate",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>",
+        "file:///*"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false,
+      "js": [
+        "src/data/ramp-mock.js",
+        "src/engine/detect.js",
+        "src/engine/rules.js",
+        "src/content/panel-style.js",
+        "src/content/panel.js",
+        "src/content/content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "demo/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout — monday.com</title>
+  <link rel="stylesheet" href="demo.css">
+  <style> :root { --accent: #ff3d57; } </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="brand">monday.com</span>
+    <nav><span>Work management</span><span>Plans</span><span>Billing</span></nav>
+    <div class="right"><span>Northwind Labs</span><span class="avatar">AC</span></div>
+  </div>
+
+  <main>
+    <h1>Complete your purchase</h1>
+    <p class="lede">Issue tracking, project management and sprint planning for your team.</p>
+
+    <div class="panel">
+      <div class="row">
+        <div>
+          <h2>Pro plan</h2>
+          <p class="muted small">Chosen plan: Pro · annual billing · 120 seats</p>
+        </div>
+        <span class="spacer"></span>
+        <div style="text-align:right">
+          <div class="pricebig">$19<small class="muted" style="font-size:13px;font-weight:400"> per seat / month</small></div>
+          <div class="muted small">120 seats × $19</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Billing information</h2>
+      <div class="grid2" style="margin-top:12px">
+        <div><label>Cardholder name</label><input autocomplete="cc-name" placeholder="Name on card"></div>
+        <div><label>Card number</label><input autocomplete="cc-number" placeholder="Card number"></div>
+        <div><label>Expiry</label><input autocomplete="cc-exp" placeholder="MM / YY"></div>
+        <div><label>CVC</label><input autocomplete="cc-csc" placeholder="CVC"></div>
+      </div>
+    </div>
+
+    <div class="panel summary">
+      <div class="row">
+        <span>Pro plan, 120 seats</span>
+        <span class="spacer"></span>
+        <span>$2,280 per month</span>
+      </div>
+      <div class="row">
+        <span>Billed annually</span>
+        <span class="spacer"></span>
+        <span>$27,360 per year</span>
+      </div>
+      <div class="row">
+        <span class="total">Order total: $2,280</span>
+        <span class="spacer"></span>
+        <button>Place order</button>
+      </div>
+    </div>
+  </main>
+  <script src="../dev/boot-preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ramp Escalate popup (preview)</title>
+  <base href="/src/popup/">
+  <script src="/dev/chrome-shim.js"></script>
+  <script>
+    // Seed the activity log and a page context so the popup has something to show.
+    chrome.storage.local.set({ escalations: [
+      { type: 'card',     vendor: 'Datadog',  amount: 1300, id: 'CARD-9F2K1A', ts: Date.now() - 6e4 },
+      { type: 'approval', vendor: 'monday.com', amount: 2280, id: 'APR-7QX3DD', ts: Date.now() - 9e5 },
+      { type: 'seat',     vendor: 'Linear',   amount: 0,    id: 'SEAT-2B8MZQ', ts: Date.now() - 36e5 }
+    ]});
+    chrome.runtime.onMessage.addListener((msg, _s, send) => {
+      if (msg.kind === 'ramp:getContext') {
+        send({ context: {
+          vendor: 'Datadog', host: 'app.datadoghq.com', category: 'Observability',
+          monthly: 14400, incremental: 6000,
+          verdict: { level: 'block', label: "Don't buy yet" },
+          insights: [
+            { severity: 'block', title: 'Overshoots Engineering Software by $4,700' },
+            { severity: 'warn',  title: 'Overlapping observability spend: $3,100/mo' },
+            { severity: 'warn',  title: '49 idle Datadog seats — $3,430/mo of nothing' },
+            { severity: 'warn',  title: '3 policies apply — Manager + Procurement + Finance sign-off' }
+          ]
+        }});
+        return true;
+      }
+      return false;
+    });
+  </script>
+</head>
+<body></body>
+<script>
+  fetch('/src/popup/popup.html').then(r => r.text()).then(html => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    document.head.appendChild(Object.assign(document.createElement('link'),
+      { rel: 'stylesheet', href: '/src/popup/popup.css' }));
+    document.body.innerHTML = doc.body.innerHTML;
+    [...doc.body.querySelectorAll('script')].forEach(() => {});
+    const load = srcs => {
+      if (!srcs.length) return;
+      const s = document.createElement('script');
+      s.src = srcs[0];
+      s.onload = () => load(srcs.slice(1));
+      document.body.appendChild(s);
+    };
+    load(['/src/data/ramp-mock.js', '/src/popup/popup.js']);
+  });
+</script>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EC2 — Launch an instance | Amazon Web Services</title>
+  <link rel="stylesheet" href="demo.css">
+  <style>
+    :root { --accent: #ec7211; }
+    .brand { color: #232f3e; }
+    .brand b { color: #ec7211; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="brand">aws<b>.</b></span>
+    <nav><span>EC2</span><span>Instances</span><span>Auto Scaling</span><span>Launch templates</span></nav>
+    <div class="right"><span>us-east-1</span><span class="avatar">AC</span></div>
+  </div>
+
+  <main>
+    <h1>Launch an instance</h1>
+    <p class="lede">Amazon Web Services · EC2 · northwind-platform account (4471-9920-3318)</p>
+
+    <div class="panel">
+      <h2>Name and tags</h2>
+      <div class="grid2" style="margin-top:12px">
+        <div><label>Name</label><input value="batch-feature-store"></div>
+        <div><label>Environment tag</label><input value="staging"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Instance type</h2>
+      <p class="muted small">Instance type: m7i.8xlarge — 32 vCPU, 128 GiB memory, up to 12.5 Gbps network</p>
+      <table style="margin-top:14px">
+        <thead><tr><th>Type</th><th class="num">vCPU</th><th class="num">Memory</th><th class="num">On-demand / hr</th></tr></thead>
+        <tbody>
+          <tr><td>m7i.4xlarge</td><td class="num">16</td><td class="num">64 GiB</td><td class="num">$0.8064</td></tr>
+          <tr class="sel"><td>m7i.8xlarge</td><td class="num">32</td><td class="num">128 GiB</td><td class="num">$1.6128</td></tr>
+          <tr><td>r7i.8xlarge</td><td class="num">32</td><td class="num">256 GiB</td><td class="num">$2.1168</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>Network and scaling</h2>
+      <div class="grid3" style="margin-top:12px">
+        <div><label>Availability zone</label><input value="us-east-1c"></div>
+        <div><label>Number of instances</label><input value="12 instances"></div>
+        <div><label>Purchasing option</label><input value="On-Demand"></div>
+      </div>
+    </div>
+
+    <div class="panel summary">
+      <div class="row">
+        <div>
+          <h2>Estimated cost</h2>
+          <p class="muted small">12 instances × $1.6128/hr, running continuously</p>
+        </div>
+        <span class="spacer"></span>
+        <div style="text-align:right">
+          <div class="total">$14,128/month</div>
+          <div class="muted small">$19.3540/hr on-demand</div>
+        </div>
+      </div>
+      <div class="row">
+        <span class="spacer"></span>
+        <button class="ghost">Save as template</button>
+        <button>Launch instance</button>
+      </div>
+    </div>
+  </main>
+  <script src="../dev/boot-preview.js"></script>
+</body>
+</html>

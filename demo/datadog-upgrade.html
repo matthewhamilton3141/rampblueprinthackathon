@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datadog — Plan &amp; Usage</title>
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <div class="topbar">
+    <span class="brand">Datadog</span>
+    <nav><span>Dashboards</span><span>APM</span><span>Logs</span><span>Infrastructure</span><span>Plan &amp; Usage</span></nav>
+    <div class="right"><span>northwind-prod</span><span class="avatar">AC</span></div>
+  </div>
+
+  <main>
+    <h1>Plan &amp; Usage</h1>
+    <p class="lede">Observability, APM and log management for the northwind-prod organization.</p>
+
+    <div class="panel">
+      <div class="row">
+        <div>
+          <h2>Current plan</h2>
+          <p class="muted small">Pro · billed annually · renews January 14, 2027</p>
+        </div>
+        <span class="spacer"></span>
+        <div style="text-align:right">
+          <div class="pricebig">$8,400<small class="muted" style="font-size:13px;font-weight:400">/month</small></div>
+          <div class="muted small">120 hosts provisioned · 71 reporting in the last 90 days</div>
+        </div>
+      </div>
+      <div class="row">
+        <span class="small muted">Log ingest overage, last three months</span>
+        <span class="spacer"></span>
+        <span class="small">$1,640 · $1,860 · $2,180</span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:28px">Change plan</h2>
+    <p class="muted small">You're upgrading to Enterprise. Changes take effect at the start of the next billing period.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <h3>Free</h3>
+        <div class="p">$0 <small>/month</small></div>
+        <ul><li>1-day metric retention</li><li>5 hosts</li><li>Community support</li></ul>
+      </div>
+      <div class="tier current">
+        <h3>Pro <span class="badge">Current</span></h3>
+        <div class="p">$70 <small>per host / month</small></div>
+        <ul><li>15-month metric retention</li><li>Unlimited dashboards</li><li>Outlier detection</li></ul>
+      </div>
+      <div class="tier selected">
+        <h3>Enterprise <span class="badge sel">Selected</span></h3>
+        <div class="p">$120 <small>per host / month</small></div>
+        <ul><li>Everything in Pro</li><li>Watchdog AI insights</li><li>Live processes &amp; profiling</li><li>Named technical account manager</li></ul>
+      </div>
+    </div>
+
+    <div class="panel summary">
+      <div class="row">
+        <div>
+          <h2>Upgrade summary</h2>
+          <p class="muted small">Enterprise tier, 120 hosts, committed annually</p>
+        </div>
+        <span class="spacer"></span>
+        <div style="text-align:right">
+          <div class="total">$14,400/month</div>
+          <div class="muted small">$172,800 per year · billed annually on renewal</div>
+        </div>
+      </div>
+      <div class="row">
+        <span class="muted small">Log ingest is billed on top of the tier at current rates.</span>
+        <span class="spacer"></span>
+        <button class="ghost">Cancel</button>
+        <button>Confirm upgrade</button>
+      </div>
+    </div>
+  </main>
+  <script src="../dev/boot-preview.js"></script>
+</body>
+</html>

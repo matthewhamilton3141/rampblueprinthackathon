@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marriott Marquis — New York, NY</title>
+  <link rel="stylesheet" href="demo.css">
+  <style> :root { --accent: #a4343a; } </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="brand">Marriott</span>
+    <nav><span>Hotels</span><span>Reservations</span><span>Bonvoy</span></nav>
+    <div class="right"><span>Bonvoy member</span><span class="avatar">AC</span></div>
+  </div>
+
+  <main>
+    <h1>Marriott Marquis, Times Square</h1>
+    <p class="lede">1535 Broadway, New York, NY · King room, high floor</p>
+
+    <div class="panel">
+      <h2>Your stay</h2>
+      <div class="grid3" style="margin-top:12px">
+        <div><label>Check-in date</label><input value="Nov 12, 2026"></div>
+        <div><label>Checkout date</label><input value="Nov 16, 2026"></div>
+        <div><label>Guests</label><input value="1 adult"></div>
+      </div>
+      <p class="muted small" style="margin-top:12px">4 nights · flexible rate, free cancellation until 48 hours before arrival</p>
+    </div>
+
+    <div class="panel">
+      <h2>Rate</h2>
+      <table style="margin-top:12px">
+        <thead><tr><th>Rate plan</th><th class="num">Per night</th></tr></thead>
+        <tbody>
+          <tr><td>Advance purchase, non-refundable</td><td class="num">$412</td></tr>
+          <tr class="sel"><td>Flexible rate (selected)</td><td class="num">$479 per night</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel summary">
+      <div class="row">
+        <span>$479 per night × 4 nights</span>
+        <span class="spacer"></span>
+        <span>$1,916</span>
+      </div>
+      <div class="row">
+        <span>Taxes and fees</span>
+        <span class="spacer"></span>
+        <span>$312</span>
+      </div>
+      <div class="row">
+        <span class="total">Total due: $2,228</span>
+        <span class="spacer"></span>
+        <button>Complete purchase</button>
+      </div>
+    </div>
+  </main>
+  <script src="../dev/boot-preview.js"></script>
+</body>
+</html>
