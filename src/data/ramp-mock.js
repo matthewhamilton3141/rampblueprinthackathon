@@ -221,20 +221,23 @@
      */
     betterBuys: {
       'datadog': {
-        headline: 'Stay on Pro, right-sized to what you use',
-        rationale: 'Enterprise buys features for 120 hosts. 71 report.',
-        newMonthly: 4970,
+        // They want Enterprise, and that's reasonable. They just don't need it
+        // on 49 hosts that stopped reporting. Ramp buys the tier they asked for,
+        // sized to the fleet that exists.
+        headline: 'Buy Enterprise for the 71 hosts that report',
+        rationale: "You're paying for 120. 49 haven't sent a metric in 90 days.",
+        newMonthly: 8520,
         steps: [
-          { done: true,  text: 'Virtual card issued, capped $4,970/mo, locked to Datadog' },
-          { done: true,  text: 'Host count dropped 120 → 71 at next billing cycle' },
-          { done: false, text: 'New Relic cancellation queued for 2026-11-30' },
-          { done: false, text: 'Awaiting Engineering Manager approval' }
+          { done: true,  text: 'Datadog Enterprise provisioned for 71 hosts, not 120' },
+          { done: true,  text: 'Virtual card issued, capped $8,520/mo, locked to Datadog' },
+          { done: true,  text: 'Lands inside the Engineering budget — $1,180 still free' },
+          { done: false, text: 'Finance sign-off queued: $102,240 annual commitment (POL-SW-03)' }
         ],
         invoice: {
           lines: [
-            { label: 'Datadog Pro — 71 hosts', sub: 'Monthly, annual commitment', amount: 4970 }
+            { label: 'Datadog Enterprise — 71 hosts', sub: 'Monthly, annual commitment', amount: 8520 }
           ],
-          note: 'New Relic Data Plus sunsets 2026-11-30, recovering a further $3,100/mo.'
+          note: 'Only $120/mo more than the Pro plan you are already on. The 120-host version of this same upgrade was $4,700 over budget.'
         }
       },
 

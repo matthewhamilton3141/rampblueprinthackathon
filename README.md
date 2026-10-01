@@ -20,9 +20,9 @@ Run one scenario. The Datadog one carries the whole story.
 | **0:00** | Engineer is upgrading Datadog Pro → Enterprise. The panel appears on its own — nobody opened anything. |
 | **0:08** | `$14,400/mo` — the same number the page shows. **Don't buy yet.** |
 | **0:15** | Overshoots the Engineering software budget by $4,700, and New Relic already does observability. |
-| **0:25** | **Let Ramp do it instead** → stay on Pro, right-sized to the 71 hosts that actually report. $14,400 → $4,970. |
-| **0:35** | PENDING — the steps tick in over a second: card issued and capped, hosts dropped 120 → 71, New Relic cancellation queued, approval routed. |
-| **0:40** | The invoice button lightens. **View invoice** → $4,970.00 due, $9,430.00 avoided. |
+| **0:25** | **Let Ramp do it instead** → buy Enterprise, but for the 71 hosts that still report rather than all 120. $14,400 → $8,520. |
+| **0:35** | PENDING — the steps tick in over a second: Enterprise provisioned at 71 hosts, card issued and capped, budget cleared, Finance sign-off queued. |
+| **0:40** | The invoice button lightens. **View invoice** → $8,520.00 due, $5,880.00 avoided — and the tier they wanted costs $120/mo more, not $6,000. |
 
 The panel leads with two signals and hides the rest behind *Show N more* — the
 depth is there if a judge asks, and out of the way if they don't.
@@ -45,7 +45,7 @@ convenience, not shipped behaviour.
 
 | Page | What Escalate says |
 |---|---|
-| Datadog Pro → Enterprise | Budget overshoot + a second observability vendor. **Fix:** stay on Pro at 71 hosts. $14,400 → $4,970/mo |
+| Datadog Pro → Enterprise | Budget overshoot + a second observability vendor. **Fix:** buy Enterprise for the 71 live hosts. $14,400 → $8,520/mo |
 | monday.com checkout, 120 seats | Linear Business already covers this, 115 of 120 seats in use. **Fix:** claim a Linear seat. $2,280 → $0 |
 | EC2 launch, 12 × m7i.8xlarge | Same 32 vCPU / 128 GiB shape costs less on Graviton. **Fix:** launch m7g.8xlarge. $14,128 → $11,437/mo |
 | Marriott Marquis, 4 nights | $479/night against a $350 cap. **Fix:** rebook at $329/night. $2,228 → $1,530 |
