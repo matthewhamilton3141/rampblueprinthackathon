@@ -338,6 +338,8 @@
       ctx,
       insights,
       verdict: verdict(insights),
+      // The purchase Ramp would make instead, when there is a better one.
+      plan: D().betterBuyFor(ctx),
       summary: {
         incrementalMonthly: incremental,
         annualized: incremental ? incremental * 12 : null,

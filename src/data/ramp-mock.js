@@ -214,6 +214,99 @@
       'c7g.12xlarge':  { hourly: 1.74,   vcpu: 48, mem: 96,  graviton: true }
     },
 
+    /**
+     * The purchase Ramp would make instead. Hardcoded per scenario: this is the
+     * demo's payoff, not a solver. Each plan is what a finance partner would do
+     * with the same ledger, priced off the same numbers the rules already used.
+     */
+    betterBuys: {
+      'datadog': {
+        headline: 'Stay on Pro, right-sized to what you use',
+        rationale: 'Enterprise buys features for 120 hosts. 71 report.',
+        newMonthly: 4970,
+        steps: [
+          { done: true,  text: 'Virtual card issued, capped $4,970/mo, locked to Datadog' },
+          { done: true,  text: 'Host count dropped 120 → 71 at next billing cycle' },
+          { done: false, text: 'New Relic cancellation queued for 2026-11-30' },
+          { done: false, text: "Awaiting Priya Raman's approval" }
+        ],
+        invoice: {
+          lines: [
+            { label: 'Datadog Pro — 71 hosts', sub: 'Monthly, annual commitment', amount: 4970 }
+          ],
+          note: 'New Relic Data Plus sunsets 2026-11-30, recovering a further $3,100/mo.'
+        }
+      },
+
+      'monday.com': {
+        headline: 'Use the Linear seats you already pay for',
+        rationale: 'Linear Business covers project tracking and has capacity.',
+        newMonthly: 0,
+        steps: [
+          { done: true,  text: 'Linear seat provisioned to alex.chen@northwind.io' },
+          { done: true,  text: 'monday.com order cancelled before authorization' },
+          { done: true,  text: 'No card issued — nothing to approve' }
+        ],
+        invoice: {
+          lines: [
+            { label: 'Linear Business — 1 seat', sub: 'Existing contract, seat 116 of 120', amount: 0 }
+          ],
+          note: 'No new vendor, no new commitment, no procurement review.'
+        }
+      },
+
+      'amazon web services': {
+        headline: 'Launch the Graviton shape instead',
+        rationale: 'm7g.8xlarge is the same 32 vCPU / 128 GiB for less.',
+        newMonthly: 11437,
+        steps: [
+          { done: true,  text: 'Launch template rewritten to 12 × m7g.8xlarge' },
+          { done: true,  text: 'Virtual card issued, capped $11,437/mo' },
+          { done: false, text: '1-year compute Savings Plan requested from Platform' },
+          { done: false, text: "Awaiting Priya Raman's approval" }
+        ],
+        invoice: {
+          lines: [
+            { label: 'EC2 — 12 × m7g.8xlarge', sub: 'us-east-1c · on-demand, 730 hrs', amount: 11437 }
+          ],
+          note: 'Savings Plan coverage would take a further ~28% off this line.'
+        }
+      },
+
+      'marriott': {
+        headline: 'Rebook inside policy, same block',
+        rationale: 'Marriott Downtown runs $329/night, four minutes further out.',
+        newMonthly: 1530,
+        steps: [
+          { done: true,  text: 'Rebooked: Marriott Downtown, $329/night × 4' },
+          { done: true,  text: 'Virtual card issued, capped $1,530, locked to Marriott' },
+          { done: true,  text: 'Free cancellation retained to Nov 10' },
+          { done: false, text: "Awaiting Priya Raman's approval" }
+        ],
+        invoice: {
+          lines: [
+            { label: 'Marriott Downtown — 4 nights', sub: '85 West St · Nov 12–16, $329/night', amount: 1316 },
+            { label: 'Taxes and fees', sub: null, amount: 214 }
+          ],
+          note: 'Within POL-TRV-01. No exception needed.'
+        }
+      }
+    },
+
+    /** The plan for this page, with the comparison numbers filled in. */
+    betterBuyFor(ctx) {
+      if (!ctx || !ctx.vendor) return null;
+      const plan = this.betterBuys[ctx.vendor.toLowerCase()];
+      if (!plan) return null;
+      const was = ctx.monthly || 0;
+      return {
+        ...plan,
+        was,
+        saved: Math.max(0, was - plan.newMonthly),
+        vendor: ctx.vendor
+      };
+    },
+
     // ---- derived helpers -------------------------------------------------
 
     budgetFor(department, category) {

@@ -11,6 +11,22 @@ says the useful thing while you can still act on it.
 
 <img width="384" alt="The Escalate panel" src="docs/panel.png">
 
+## Demo in 45 seconds
+
+Run one scenario. The Datadog one carries the whole story.
+
+| | |
+|---|---|
+| **0:00** | Engineer is upgrading Datadog Pro → Enterprise. The panel appears on its own — nobody opened anything. |
+| **0:08** | `$14,400/mo` — the same number the page shows. **Don't buy yet.** |
+| **0:15** | Overshoots the Engineering software budget by $4,700, and New Relic already does observability. |
+| **0:25** | **Let Ramp do it instead** → stay on Pro, right-sized to the 71 hosts that actually report. $14,400 → $4,970. |
+| **0:35** | PENDING: card issued and capped, hosts dropped 120 → 71, New Relic cancellation queued, approval routed. |
+| **0:40** | **View invoice** → $4,970.00 due, $9,430.00 avoided. |
+
+The panel leads with two signals and hides the rest behind *Show N more* — the
+depth is there if a judge asks, and out of the way if they don't.
+
 ## Run it
 
 ```bash
@@ -29,10 +45,10 @@ convenience, not shipped behaviour.
 
 | Page | What Escalate says |
 |---|---|
-| Datadog Pro → Enterprise | $6,000/mo incremental against $1,300 left in the Engineering software budget; New Relic is a second observability contract; 49 of 120 Datadog seats idle |
-| monday.com checkout, 120 seats | Linear Business already covers project tracking with 115 of 120 seats in use — decline, and claim a Linear seat for $0 |
-| EC2 launch, 12 × m7i.8xlarge | `m7g.8xlarge` is the identical shape for $2,691/mo less, and POL-CLD-01 asks for Graviton on non-prod |
-| Marriott Marquis, 4 nights | $479/night against a $350 cap — issue a card capped at $1,400 instead |
+| Datadog Pro → Enterprise | Budget overshoot + a second observability vendor. **Fix:** stay on Pro at 71 hosts. $14,400 → $4,970/mo |
+| monday.com checkout, 120 seats | Linear Business already covers this, 115 of 120 seats in use. **Fix:** claim a Linear seat. $2,280 → $0 |
+| EC2 launch, 12 × m7i.8xlarge | Same 32 vCPU / 128 GiB shape costs less on Graviton. **Fix:** launch m7g.8xlarge. $14,128 → $11,437/mo |
+| Marriott Marquis, 4 nights | $479/night against a $350 cap. **Fix:** rebook at $329/night. $2,228 → $1,530 |
 
 Nothing on those pages tells the extension what to think. No data attributes, no
 per-site scrapers. It reads prices, tiers, seat counts and instance types out of
@@ -71,11 +87,17 @@ severity (`block` / `warn` / `info`):
 - **Cloud** — the equivalent Graviton shape and what it saves; Savings Plan coverage.
 - **Travel** — nightly cap, preferred carrier.
 
-**Actions.** Every insight can end in something you can do: issue a virtual card
-capped at the number the rule just computed and locked to that merchant, route an
-approval to the right approvers, claim a seat on a contract you already pay for,
-or generate a negotiation script / consolidation memo assembled from the actual
-invoice history rather than a template.
+**The fix.** When there's a better version of the purchase, Ramp offers to make
+it instead — one button, then a pending execution with the steps checking off,
+then an invoice for what actually got bought. These four plans are hardcoded in
+`src/data/ramp-mock.js` (`betterBuys`); they're priced off the same numbers the
+rules used, but no solver picked them.
+
+**Actions.** Each individual insight also ends in something you can do: issue a
+virtual card capped at the number the rule just computed and locked to that
+merchant, route an approval to the right approvers, claim a seat on a contract
+you already pay for, or generate a negotiation script / consolidation memo
+assembled from the actual invoice history rather than a template.
 
 ## What's real and what isn't
 
