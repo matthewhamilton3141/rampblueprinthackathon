@@ -167,6 +167,15 @@ window.__RAMP_CSS = `
   font-size: 12.5px; font-weight: 650;
 }
 .fix .btn.hero:hover { background: #E2FF78; border-color: #E2FF78; }
+.fix .btn.hero { transition: background .4s ease, border-color .4s ease, color .4s ease; }
+/* dim until the execution finishes, then it lightens into the lime CTA */
+.fix .btn.hero.off {
+  opacity: 1; cursor: default;
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.12);
+  color: #7E817A;
+}
+.fix .btn.hero.off:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
 
 .steps { margin-top: 10px; display: grid; gap: 6px; }
 .steps li { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; list-style: none; }
@@ -177,8 +186,14 @@ window.__RAMP_CSS = `
 }
 .steps .sm.done { background: #D7FC51; color: #14200A; }
 .steps .sm.wait { border: 1.5px dashed rgba(255,184,77,0.6); }
+.steps .sm.queued { border: 1.5px solid rgba(255,255,255,0.13); }
 .steps li.done span:last-child { color: #D4D7CF; }
 .steps li.wait span:last-child { color: #93968F; }
+.steps li.queued span:last-child { color: #5C5F57; }
+/* each step settles as Ramp works through it */
+.steps li span:last-child, .steps .sm {
+  transition: color .3s ease, background .3s ease, border-color .3s ease;
+}
 
 /* show-more */
 .more {

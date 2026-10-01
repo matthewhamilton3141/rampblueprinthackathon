@@ -21,8 +21,8 @@ Run one scenario. The Datadog one carries the whole story.
 | **0:08** | `$14,400/mo` — the same number the page shows. **Don't buy yet.** |
 | **0:15** | Overshoots the Engineering software budget by $4,700, and New Relic already does observability. |
 | **0:25** | **Let Ramp do it instead** → stay on Pro, right-sized to the 71 hosts that actually report. $14,400 → $4,970. |
-| **0:35** | PENDING: card issued and capped, hosts dropped 120 → 71, New Relic cancellation queued, approval routed. |
-| **0:40** | **View invoice** → $4,970.00 due, $9,430.00 avoided. |
+| **0:35** | PENDING — the steps tick in over a second: card issued and capped, hosts dropped 120 → 71, New Relic cancellation queued, approval routed. |
+| **0:40** | The invoice button lightens. **View invoice** → $4,970.00 due, $9,430.00 avoided. |
 
 The panel leads with two signals and hides the rest behind *Show N more* — the
 depth is there if a judge asks, and out of the way if they don't.

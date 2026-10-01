@@ -43,6 +43,8 @@
       this.expanded = false;
       this.dismissed = false;
       this.fixState = 'offered';   // offered → pending
+      this.ready = false;          // true once the execution animation lands
+      this.timers = [];
       this.showAll = false;
       this.mount();
     }
@@ -200,22 +202,69 @@
           </div>
           <h3>${esc(plan.headline)}</h3>
           <ul class="steps">
-            ${plan.steps.map(st => `
-              <li class="${st.done ? 'done' : 'wait'}">
-                <span class="sm ${st.done ? 'done' : 'wait'}">${st.done ? '✓' : ''}</span>
+            ${plan.steps.map(st => {
+              const cls = this.ready ? (st.done ? 'done' : 'wait') : 'queued';
+              return `
+              <li class="${cls}">
+                <span class="sm ${cls}">${this.ready && st.done ? '✓' : ''}</span>
                 <span>${esc(st.text)}</span>
-              </li>`).join('')}
+              </li>`;
+            }).join('')}
           </ul>
-          <div class="acts"><button class="btn hero">View invoice</button></div>
+          <div class="acts">
+            <button class="btn hero ${this.ready ? '' : 'off'}">${this.ready ? 'View invoice' : 'Executing…'}</button>
+          </div>
         </div>`);
-      node.querySelector('.hero').addEventListener('click', () => this.openInvoice(plan));
+      node.querySelector('.hero').addEventListener('click', () => {
+        if (this.ready) this.openInvoice(plan);
+      });
       return node;
     }
 
+    /**
+     * One second of Ramp doing the work: the steps settle one at a time, then
+     * the invoice button lightens. Mutated in place rather than re-rendered so
+     * the CSS transitions actually play.
+     */
     execute(plan) {
+      this.clearTimers();
       this.fixState = 'pending';
+      this.ready = false;
       this.render();
-      this.toast(plan.newMonthly ? `Rerouted · ${usd(plan.saved)}/mo saved` : `Avoided ${usd(plan.saved)}/mo`);
+
+      const node = this.root.querySelector('.fix');
+      if (!node) return;
+      const items = [...node.querySelectorAll('.steps li')];
+      const btn = node.querySelector('.hero');
+      const stride = Math.round(820 / Math.max(1, items.length));
+
+      items.forEach((li, i) => {
+        const st = plan.steps[i];
+        this.timers.push(setTimeout(() => {
+          if (!li.isConnected) return;
+          const cls = st.done ? 'done' : 'wait';
+          li.className = cls;
+          const mark = li.querySelector('.sm');
+          mark.className = 'sm ' + cls;
+          mark.textContent = st.done ? '✓' : '';
+        }, stride * (i + 1)));
+      });
+
+      this.timers.push(setTimeout(() => {
+        this.ready = true;
+        if (btn && btn.isConnected) {
+          btn.classList.remove('off');
+          btn.textContent = 'View invoice';
+        } else {
+          this.render();
+        }
+        this.toast(plan.newMonthly ? `Rerouted · ${usd(plan.saved)}/mo saved` : `Avoided ${usd(plan.saved)}/mo`);
+      }, 1000));
+    }
+
+    clearTimers() {
+      this.timers.forEach(clearTimeout);
+      this.timers = [];
     }
 
     insight(ins, idx) {
@@ -373,7 +422,7 @@
       this.render();
     }
 
-    destroy() { this.hostEl.remove(); }
+    destroy() { this.clearTimers(); this.hostEl.remove(); }
   }
 
   window.__RAMP_PANEL = Panel;
