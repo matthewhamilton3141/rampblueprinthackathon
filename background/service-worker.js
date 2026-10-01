@@ -56,13 +56,13 @@ function handleAction(action, ctx) {
 
     case 'request_approval': {
       const id = refId('APR');
-      const approvers = action.approvers && action.approvers.length ? action.approvers.join(', ') : 'Priya Raman';
+      const approvers = action.approvers && action.approvers.length ? action.approvers.join(', ') : 'Engineering Manager';
       log({ type: 'approval', vendor, amount, id, detail: `Approval requested from ${approvers}` });
       return {
         title: 'Approval request sent',
         detail: `${vendor} · ${usd(amount)}/mo. Routed with the page context and the budget snapshot attached.`,
         fields: {
-          'Requested by': 'Alex Chen',
+          'Requested by': 'Infrastructure Engineer',
           'Approvers': approvers,
           'Amount': `${usd(amount)} / month`,
           'Annualized': usd(amount * 12),
@@ -81,7 +81,7 @@ function handleAction(action, ctx) {
         detail: `No new spend. ${vendor} already has idle capacity on the current term.`,
         fields: {
           'Vendor': vendor,
-          'Assigned to': 'alex.chen@northwind.io',
+          'Assigned to': 'infra-eng@northwind.io',
           'Incremental cost': '$0',
           'Provisioned by': `${vendor} workspace admin`,
           'Reference': id

@@ -161,7 +161,7 @@
       card.appendChild(el(`
         <div class="foot">
           <span class="live"></span>
-          <span>Reading this page · ${esc(window.__RAMP_DATA.user.name)}</span>
+          <span>Reading this page · ${esc(window.__RAMP_DATA.user.role)}</span>
           <span class="spacer"></span>
           <span>mock data</span>
         </div>`));
@@ -196,9 +196,11 @@
       const node = el(`
         <div class="fix">
           <div class="ftop">
-            ${ICONS.bolt}<span>Ramp is handling this</span>
+            ${ICONS.bolt}<span class="flabel">${this.ready ? 'Ramp handled this' : 'Ramp is handling this'}</span>
             <span class="spacer"></span>
-            <span class="status"><span class="sdot"></span>PENDING</span>
+            <span class="status ${this.ready ? 'done' : ''}">
+              <span class="sdot"></span>${this.ready ? 'EXECUTED' : 'PENDING'}
+            </span>
           </div>
           <h3>${esc(plan.headline)}</h3>
           <ul class="steps">
@@ -255,6 +257,14 @@
         if (btn && btn.isConnected) {
           btn.classList.remove('off');
           btn.textContent = 'View invoice';
+          // nothing is "handling" or "pending" once the invoice exists
+          const label = node.querySelector('.flabel');
+          const chip = node.querySelector('.status');
+          if (label) label.textContent = 'Ramp handled this';
+          if (chip) {
+            chip.classList.add('done');
+            chip.innerHTML = '<span class="sdot"></span>EXECUTED';
+          }
         } else {
           this.render();
         }
@@ -373,7 +383,7 @@
             </div>
 
             <dl class="imeta">
-              <dt>Billed to</dt><dd>${esc(d.user.name)}</dd>
+              <dt>Billed to</dt><dd>${esc(d.user.role)} · ${esc(d.user.department)}</dd>
               <dt>Card</dt><dd>${charged ? `Visa ···· ${esc(d.user.cardLast4)} · merchant-locked` : 'None issued'}</dd>
               <dt>Issued</dt><dd>${esc(today)}</dd>
               <dt>Status</dt><dd><span class="ipend ${charged ? '' : 'ok'}">${charged ? 'PENDING APPROVAL' : 'NO CHARGE'}</span></dd>
@@ -396,7 +406,7 @@
             ${plan.invoice.note ? `<div class="inote">${esc(plan.invoice.note)}</div>` : ''}
 
             <div class="ifoot">
-              <span>${charged ? `Approver: ${esc(d.user.manager)}` : 'No approval required'}</span>
+              <span>${charged ? `Approver: ${esc(d.user.approver)}` : 'No approval required'}</span>
               <span class="spacer"></span>
               <span>Simulated · mock data</span>
             </div>

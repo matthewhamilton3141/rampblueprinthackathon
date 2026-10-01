@@ -133,8 +133,8 @@
         severity: 'warn',
         icon: 'lock',
         title: `Above your ${usd(D().user.discretionaryMonthly)}/mo discretionary limit`,
-        detail: `${usd(incremental)} needs ${D().user.manager}'s approval before the card will authorize.`,
-        actions: [{ type: 'request_approval', label: `Ask ${D().user.manager.split(' ')[0]} to approve`, amount: incremental }]
+        detail: `${usd(incremental)} needs ${D().user.approver} approval before the card will authorize.`,
+        actions: [{ type: 'request_approval', label: 'Request manager approval', amount: incremental }]
       });
     }
 
@@ -379,7 +379,7 @@
     }
     lines.push('');
     lines.push(`Happy to sign early for the right number.`);
-    lines.push(`— ${d.user.name}, ${d.user.title}, ${d.company.name}`);
+    lines.push(`— ${d.user.role}, ${d.company.name}`);
     return lines.join('\n');
   }
 
@@ -403,7 +403,7 @@
     const L = [];
 
     L.push(`Consolidation proposal — ${ctx.category}`);
-    L.push(`Prepared by ${d.user.name} · ${new Date().toISOString().slice(0, 10)}`);
+    L.push(`Prepared by ${d.user.role} · ${new Date().toISOString().slice(0, 10)}`);
     L.push('');
 
     const footprint = incumbents.reduce((a, s) => a + s.monthly, 0);

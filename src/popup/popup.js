@@ -11,8 +11,8 @@ const DEMOS = [
 const DEMO_BASE = 'http://localhost:8787/demo/';
 
 function renderWho() {
-  $('who-name').textContent = D.user.name;
-  $('who-role').textContent = `${D.user.title} · ${D.company.name}`;
+  $('who-name').textContent = D.user.role;
+  $('who-role').textContent = `${D.user.department} · ${D.company.name}`;
 }
 
 function renderBudgets() {

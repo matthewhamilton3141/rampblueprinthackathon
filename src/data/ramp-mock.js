@@ -9,14 +9,14 @@
   const RAMP = {
     month: MONTH,
 
+    // Identified by role, not by person — nothing here needs a name.
     user: {
-      name: 'Alex Chen',
-      email: 'alex.chen@northwind.io',
-      title: 'Senior Infrastructure Engineer',
+      role: 'Infrastructure Engineer',
+      email: 'infra-eng@northwind.io',
       department: 'Engineering',
-      manager: 'Priya Raman',
+      approver: 'Engineering Manager',
       cardLast4: '4417',
-      // what this employee personally can put through without review
+      // what this role can put through without review
       discretionaryMonthly: 1500
     },
 
@@ -98,7 +98,7 @@
       { date: '2026-09-28', vendor: 'Datadog',     amount: 8400,  department: 'Engineering', category: 'Software', memo: 'Pro tier — Sept' },
       { date: '2026-09-27', vendor: 'New Relic',   amount: 3100,  department: 'Engineering', category: 'Software', memo: 'Data Plus — Sept' },
       { date: '2026-09-24', vendor: 'Amazon Web Services', amount: 71240, department: 'Engineering', category: 'Cloud', memo: 'Sept usage to date' },
-      { date: '2026-09-22', vendor: 'Grafana Labs', amount: 450,  department: 'Engineering', category: 'Software', memo: 'Trial — K. Osei' },
+      { date: '2026-09-22', vendor: 'Grafana Labs', amount: 450,  department: 'Engineering', category: 'Software', memo: 'Trial — platform team' },
       { date: '2026-09-19', vendor: 'Sentry',      amount: 960,   department: 'Engineering', category: 'Software', memo: 'Business — Sept' },
       { date: '2026-09-16', vendor: 'Linear',      amount: 1680,  department: 'Engineering', category: 'Software', memo: 'Business — Sept' },
       { date: '2026-09-12', vendor: 'Vercel',      amount: 5600,  department: 'Engineering', category: 'Software', memo: 'Enterprise — Sept' },
@@ -228,7 +228,7 @@
           { done: true,  text: 'Virtual card issued, capped $4,970/mo, locked to Datadog' },
           { done: true,  text: 'Host count dropped 120 → 71 at next billing cycle' },
           { done: false, text: 'New Relic cancellation queued for 2026-11-30' },
-          { done: false, text: "Awaiting Priya Raman's approval" }
+          { done: false, text: 'Awaiting Engineering Manager approval' }
         ],
         invoice: {
           lines: [
@@ -243,7 +243,7 @@
         rationale: 'Linear Business covers project tracking and has capacity.',
         newMonthly: 0,
         steps: [
-          { done: true,  text: 'Linear seat provisioned to alex.chen@northwind.io' },
+          { done: true,  text: 'Linear seat provisioned to infra-eng@northwind.io' },
           { done: true,  text: 'monday.com order cancelled before authorization' },
           { done: true,  text: 'No card issued — nothing to approve' }
         ],
@@ -263,7 +263,7 @@
           { done: true,  text: 'Launch template rewritten to 12 × m7g.8xlarge' },
           { done: true,  text: 'Virtual card issued, capped $11,437/mo' },
           { done: false, text: '1-year compute Savings Plan requested from Platform' },
-          { done: false, text: "Awaiting Priya Raman's approval" }
+          { done: false, text: 'Awaiting Engineering Manager approval' }
         ],
         invoice: {
           lines: [
@@ -281,7 +281,7 @@
           { done: true,  text: 'Rebooked: Marriott Downtown, $329/night × 4' },
           { done: true,  text: 'Virtual card issued, capped $1,530, locked to Marriott' },
           { done: true,  text: 'Free cancellation retained to Nov 10' },
-          { done: false, text: "Awaiting Priya Raman's approval" }
+          { done: false, text: 'Awaiting Engineering Manager approval' }
         ],
         invoice: {
           lines: [

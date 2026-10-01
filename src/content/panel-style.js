@@ -148,6 +148,10 @@ window.__RAMP_CSS = `
   animation: blink 1.4s ease-in-out infinite;
 }
 @keyframes blink { 50% { opacity: .25; } }
+/* execution finished — the chip stops pulsing and goes lime */
+.fix .status { transition: background .4s ease, color .4s ease; }
+.fix .status.done { background: rgba(215,252,81,0.16); color: #D7FC51; }
+.fix .status.done .sdot { background: #D7FC51; animation: none; }
 .fix h3 { margin-top: 7px; font-size: 14.5px; font-weight: 640; letter-spacing: -.012em; }
 .fix .why { margin-top: 3px; font-size: 12.5px; color: #93968F; }
 .fix .swap {
