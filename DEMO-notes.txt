@@ -1,0 +1,105 @@
+RAMP ESCALATE — 45 SECONDS
+Datadog page only. Two scenarios.
+
+
+BEFORE YOU START
+
+•  python3 -m http.server 8787   (from repo root)
+•  datadog-upgrade.html open, panel ALREADY EXPANDED, scrolled to top
+•  override question PRE-TYPED in the Ask Ramp box, not sent
+•  zoom 100%, window wide enough that the panel clears the page
+
+
+———————————————————————
+1 · RAMP MAKES THE BETTER PURCHASE
+———————————————————————
+
+0:00   "An engineer is upgrading Datadog.
+        Fourteen thousand four hundred a month."
+        → point at the page total
+
+0:05   "Nobody opened anything. Ramp just showed up."
+        → point at the panel
+
+0:09   "It read the page. It also read our card ledger.
+        We're over budget — and 49 of those 120 servers
+        haven't sent a metric in 90 days."
+
+0:16   "So Ramp buys the tier they asked for.
+        For the 71 servers that still exist."
+        → click  LET RAMP DO IT INSTEAD
+
+0:21   "Card issued, capped, locked to Datadog."
+        → let the steps tick, then click  VIEW INVOICE
+
+0:24   *** "That's a hundred and twenty dollars more
+        than they already pay. Not six thousand.
+        It fits the budget." ***
+        → close the invoice
+
+If you land one sentence in this half, land 0:24.
+
+
+———————————————————————
+2 · THE OVERRIDE
+———————————————————————
+
+0:27   "Now the objection every tool like this gets."
+        → hit ENTER on the pre-typed question
+
+0:31   "Ramp checks the host tags and backs down —
+        31 of those dark servers belong to a project
+        that started 18 days ago."
+
+0:37   "So it doesn't say no. It says yes, for 90 days,
+        reverting on its own. Routed to Finance."
+        → click  ROUTE THE 90-DAY OVERRIDE
+
+0:42   *** "Ramp isn't a blocker.
+        It's a negotiator with an expiry date." ***
+        → stop
+
+
+———————————————————————
+PRE-TYPE THIS
+———————————————————————
+
+the platform sub-team needs all 120 hosts for the Q4 migration project
+
+
+———————————————————————
+RUNNING LONG — CUT IN THIS ORDER
+———————————————————————
+
+1.  the 0:21 line (the steps explain themselves on screen)
+2.  the 0:05 line (merge into 0:00)
+3.  the invoice entirely — say the $120 line over the
+    pending state and go straight to the override
+
+
+RUNNING SHORT
+
+"and it works the same on an AWS console or a hotel booking"
+→ open demo/index.html
+Do NOT start a scenario you can't finish.
+
+
+———————————————————————
+QUESTIONS YOU'LL GET
+———————————————————————
+
+"Is this real data?"
+   Mocked ledger, real engine. The detection, rules and panel
+   are a working extension — point it at datadoghq.com and
+   it reads it.
+
+"How does it know 71?"
+   The page says 120 provisioned, 71 reporting. Everything
+   else comes from the contract and transactions on file.
+
+"Won't engineers hate this?"
+   That's scenario 2. Show it, don't argue it.
+
+"Doesn't a card extension already do this?"
+   Those wake up at the checkout field, after the decision.
+   This one is upstream of it.
